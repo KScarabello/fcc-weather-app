@@ -5,8 +5,8 @@ import axios from 'axios';
 import {apiKey} from './config.js';
 
 class App extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       fahrenheit: "",
       celsius: "",
@@ -19,14 +19,16 @@ class App extends Component {
 
   componentDidMount() {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(getLocationInfo);
+        navigator.geolocation.getCurrentPosition(this.getLocationInfo);
     } else { 
         alert("Geolocation is not supported by this browser.");
     }
-
-    getLocationInfo(position){
+  }
+  
+  getLocationInfo(position) {
         axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}`)
             .then(response => {
+              
               this.setState({
                 description: response.data.weather[0].description,
                 fahrenheit: response.data.main.temp,
@@ -34,10 +36,7 @@ class App extends Component {
                 location: response.data.main.name
               })
           })
-      }
-  }
-
-  
+      }  
 
   render() {
     let icon = "http://openweathermap.org/img/w/" + this.state.image + ".png";
@@ -52,9 +51,10 @@ class App extends Component {
           <p>{this.state.fahrenheit}</p>
         </div>
       </div>
-    );
+    )
   }
 }
+
 
 
 export default App;
