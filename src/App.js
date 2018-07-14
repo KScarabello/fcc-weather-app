@@ -14,7 +14,7 @@ class App extends Component {
       description: "",
       location: ""
     }
-    
+    this.getLocationInfo = this.getLocationInfo.bind(this)
   }
 
   componentDidMount() {
@@ -24,18 +24,17 @@ class App extends Component {
         alert("Geolocation is not supported by this browser.");
     }
 
-
-    getLocationInfo = (position) => {
-      axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}`)
-          .then(response => {
-            this.setState({
-              description: response.data.weather[0].description,
-              fahrenheit: response.data.main.temp,
-              image: response.data.weather[0].icon,
-              location: response.data.main.name
-            })
+    getLocationInfo(position){
+        axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}`)
+            .then(response => {
+              this.setState({
+                description: response.data.weather[0].description,
+                fahrenheit: response.data.main.temp,
+                image: response.data.weather[0].icon,
+                location: response.data.main.name
+              })
           })
-    }
+      }
   }
 
   
