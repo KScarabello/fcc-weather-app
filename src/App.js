@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import {apiKey} from './config.js';
+import {ButtonToolbar, ToggleButtonGroup, ToggleButton} from 'react-bootstrap';
 
 class App extends Component {
   constructor(props){
@@ -12,7 +13,8 @@ class App extends Component {
       celsius: "",
       image: "",
       description: "",
-      location: ""
+      location: "",
+      fahrenheitVisible: true,
     }
     this.getLocationInfo = this.getLocationInfo.bind(this)
   }
@@ -49,8 +51,19 @@ class App extends Component {
           <p>{this.state.location}</p>
           <img src={icon} />
           <p className="description">{this.state.description}</p>
-          <p>{this.state.celsius}</p>
-          <p>{this.state.fahrenheit}</p>
+          {
+            this.state.fahrenheitVisible ?
+            <p>{this.state.fahrenheit}</p>
+            :
+            <p>{this.state.celsius}</p>
+          }
+          
+          <ButtonToolbar>
+            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+              <ToggleButton value={1} onClick={() => this.setState({fahrenheitVisible: true})}>Fahrenheit</ToggleButton>
+              <ToggleButton value={2} onClick={() => this.setState({fahrenheitVisible: false})}>Celsius</ToggleButton>              
+            </ToggleButtonGroup>
+          </ButtonToolbar>
         </div>
       </div>
     )
