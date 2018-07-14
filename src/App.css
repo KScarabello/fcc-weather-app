@@ -1,0 +1,19 @@
+body{
+  background: slategray;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  font-family: arial;
+}
+
+.container{
+  background: whitesmoke;
+  border: 2px gray solid;
+  border-radius: 30px;
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;  
+}
